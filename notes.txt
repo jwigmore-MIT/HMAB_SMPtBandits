@@ -1,0 +1,128 @@
+## Week of 12/13-12/17 To Do:
+1. Fix regret/arm pulls (Done 12/14)
+    *** Changes
+    *** 1. Added method to compute arm from (Band,Bin) and vice-versa
+    *** 2. Now pulls, rewards, etc are defined based on arms instead of (Band, Bin) - pullsBB corresponds to (Band,Bin) storage
+    *** 3. Choice is now a integer corresponding the the arm
+    *** 4. Tested all by implementing UCB1 in a HMAB policy
+2. Band THEN Bin Algorithm implementation
+        * UCB1 on bands where when we sample a band we uniformly sample a bin within the band
+        * Try UCB1 for Band Selection as well and compare to Uniform
+3. Uniform Band prior implementation
+4. Testing with disjoint support Band distributions
+    a. Same scale parameters, different location parameters
+    b. Characterize improvement of Band THEN Bin as a function of seperation in their support
+
+
+
+
+
+## 12/14
+To do:
+1. Fixing arm to (Band, Bin) relationship (Done)
+2. Plot pulls histogram method
+
+E1. Add in dictionary to print the policy name
+
+
+Whats the difference in rewards
+1. Cumulative (cumsum) rewards: moving average of rewards (numpy def of cumsum)
+2. Average/mean rewards: Typically refers to average across repetions
+3. More vs. less accurate rewards
+3. Weighted selection
+
+Notes:
+ - OG code has a strong emphasis on repeated trials (self.repetitions)
+      * "mean" = average over repeated trials
+
+
+Methods:
+getRewards(policy, envId) - gets the mean rewards per repetition
+getAverageWeightedSelections(policyId, envId) - for each pull of arm a(t)=bin(i), computes the average if b(i) over all pulls of b(i)
+
+getAverageRewards(policy,envId
+variables
+
+
+
+max rewards over all policies between environments aren't the same...
+    Thought: they should be as long as each policy eventually finds the max reward
+    Truth: rewards are realized random variables
+    So: What should be approximately the same = Expected Max reward
+
+
+
+
+
+
+
+
+
+## Week of 12/3-12/10
+How to setup HMAB
+    N = number of bands
+    M = number of bins
+    Band Dist = Distribution family for each Band (same for all i) e.g. "Gaussian"
+    Parameters = list of lists
+
+
+class HMAB:
+    N = number of bands
+    M = number of bins per Band
+    nbArms = Total number of arms between all Bands
+    Distribution = distribution of X_i e.g. 'Gaussian'
+    X = list of all X_i's, where each X_i is Band Object
+
+class Band:
+    i = Band index
+    Distribution = distribution of X_i e.g. 'Gaussian'
+    M = number of bins within the Band
+    #When Distribution == 'Gaussian'
+    Mu = Mean of the Gaussian i.e. E[X_i] = Mu_i
+    Var = Variance of the Gaussian i.e. Var(X_i)
+
+
+
+
+* Each Bin j in Band i
+5. R_ij = Bin reward distribution (dict) e.g.
+        R_ij_i = {'distribution': 'Gaussian',
+               'mean' = SAMPLED BASED ON X_i
+               'variance' = BASED ON X_i
+               }
+7. lam_ij = mean of R_ij
+8. Bin_params = parameters of the distribution of R_ij
+
+Now we want to automate this process
+User should input
+    1. N, M, X_i, Band_params, R_ij, Bin_params
+
+All Bin reward distributions should be created to satisfy:
+    1.  Based on X_i, Mu_i should be calculated
+        e.g.
+            X_i = {
+               'i' = 1
+               'distribution': 'Gaussian',
+               'mean' = 0.5,
+               'variance' = 0.2
+               }
+
+            if(X_i["distribution"] == 'Gaussian':
+            X_i["Mu_i"] = X_i["mean"]
+
+
+
+What's important about a Band?
+1. The distribution and its parameters (Handled in HMAB.py)
+
+2. Index
+3. Our estimate of its parameters
+
+
+Evaluator (object)
+    envs (list)
+        # HMABenv
+            X (list)
+                Band # - Mu, Std
+                    arms (list)
+                        arm (Gaussian arm object)
