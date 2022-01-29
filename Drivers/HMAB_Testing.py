@@ -1,14 +1,10 @@
 ##
-from SMPyBandits.Environment import HMABenv
 from SMPyBandits.Arms import UnboundedGaussian
-from SMPyBandits.Policies.Posterior import NormalGamma
-from SMPyBandits.Policies.HMABPolicy1 import HMABPolicy1
+from SMPyBandits.Distribution import NormalGamma
 from SMPyBandits.Policies.HMABPolicy2 import HMABPolicy2
 from SMPyBandits.Policies.HMABPolicy4 import HMABPolicy4
-from SMPyBandits.Policies.HMABPolicy3 import HMABPolicy3
 from SMPyBandits.Policies.UCB import  UCB
 from SMPyBandits.Environment import Evaluator
-import numpy as np
 
 ##
 nbBands = 2

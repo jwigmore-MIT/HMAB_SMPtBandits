@@ -1,29 +1,22 @@
 ##
 from SMPyBandits.Environment import HMABenv
-from SMPyBandits.Arms import UnboundedGaussian
 from SMPyBandits.Arms import UniformArm
 from SMPyBandits.Policies import BandThenBin1
 from SMPyBandits.Policies import BandThenBin2
-from SMPyBandits.Policies.Posterior.Uniform import Uniform
+from SMPyBandits.Distribution.Uniform import Uniform
 
-from SMPyBandits.Policies.Posterior import NormalGamma
-from SMPyBandits.Policies.HMABPolicy1 import HMABPolicy1
-from SMPyBandits.Policies.HMABPolicy2 import HMABPolicy2
-from SMPyBandits.Policies.HMABPolicy4 import HMABPolicy4
-from SMPyBandits.Policies.HMABPolicy3 import HMABPolicy3
 from SMPyBandits.Policies.UCB import  UCB
 from SMPyBandits.Environment import Evaluator
-import numpy as np
 
 ## Environment setup
-nbBands = 4
+nbBands = 2
 nbBins = 50
-bandScale = 4.5
-binScale = 10
+bandScale = 4.5 # For uniform distribution - the width of the band distributions
+binScale = 10 # The width of the bin distributions
 # Lets start by creating a Uniform Environment
 bandDistribution = "Uniform"
 bandParams = {
-    "min": [2,3,5, 10],
+    "min": [3, 10],
     'scale': [bandScale, bandScale, bandScale, bandScale]
 }
 binConfig = {
@@ -61,7 +54,7 @@ priorParams = {
 policy = BandThenBin1(nbBands, nbBins, Uniform, priorParams, verbose= False)
 
 ## Evaluator test
-HORIZON = 10000
+HORIZON = 1000
 REPETITIONS = 1
 N_JOBS = 1
 ENVIRONMENTS = [{
