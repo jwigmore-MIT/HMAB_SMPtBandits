@@ -3,8 +3,7 @@ import matplotlib.pyplot as plt
 
 from SMPyBandits.Distribution import *
 from SMPyBandits.Environment import *
-from SMPyBandits.Policies import HMABPolicy
-from SMPyBandits.Policies import HMABAlgo4
+from SMPyBandits.Policies.HMAB.HMABAlgo4 import HMABAlgo4
 from SMPyBandits.Environment import Evaluator
 
 
