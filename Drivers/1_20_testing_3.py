@@ -2,8 +2,7 @@
 from SMPyBandits.Arms import UnboundedGaussian
 from SMPyBandits.Distribution import NormalGamma
 
-from SMPyBandits.Policies import HMABSampling1
-from SMPyBandits.Policies import HMABPercentile2
+from SMPyBandits.Policies.HMABOld import HMABPercentile2, HMABSampling1
 from SMPyBandits.Policies.UCB import  UCB
 from SMPyBandits.Environment import Evaluator
 

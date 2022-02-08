@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from SMPyBandits.Distribution import *
 from SMPyBandits.Environment import *
 from SMPyBandits.Policies import HMABPolicy
-from SMPyBandits.Policies import HMABAlgo1
+from SMPyBandits.Policies import HMABAlgo2
 from SMPyBandits.Environment import Evaluator
 
 
@@ -13,12 +13,13 @@ from SMPyBandits.Environment import Evaluator
 
 
 
-nbBins = 100
+nbBins = 1000
 nbBands = 3
 percentile = .99
 P1 = 0.2
 m = 10
 HORIZON = 1000
+eps = 0.1
 
 # Gaussian Setup #
 
@@ -81,7 +82,8 @@ AlgoParams = {
     "T": HORIZON,
     "m": m,
     "P1": P1,
-    "percentile": percentile
+    "percentile": percentile,
+    "eps": eps
 }
 
 # Pol = HMABAlgo1(nbBands, nbBins, BayesSetup, AlgoParams = AlgoParams)
@@ -89,7 +91,7 @@ AlgoParams = {
 POLICIES = [
     {
         "isHMAB": True,
-        "archtype": HMABAlgo1,
+        "archtype": HMABAlgo2,
         "params": [nbBands, nbBins, BayesSetup, True, AlgoParams]
     }
 ]
@@ -123,8 +125,16 @@ eval.startAllEnv()
 eval.printSummary(0,0,3)
 eval.plotChoices(0,0)
 
-fig, ax = plt.subplots()
-ax.envOpt = envOpt
-eval.envs[0].plotDists(ax)
-ax.legend(loc = 'best', frameon = False)
-fig.show()
+
+# fig, ax = plt.subplots()
+# ax.envOpt = envOpt
+# eval.envs[0].plotDists(ax)
+# ax.legend(loc = 'best', frameon = False)
+# fig.show()
+
+###
+pol = eval.final_policy[0][0]
+result = eval.final_result[0][0]
+arms_sorted_pulls = np.argsort(-pol.pulls)
+most_pulled_bin = pol.Bins[arms_sorted_pulls[0]]
+chosen_bin = pol.Bins[pol.bestArms[0]]

@@ -1,8 +1,8 @@
 ##
 from SMPyBandits.Arms import UnboundedGaussian
 from SMPyBandits.Distribution import NormalGamma
-from SMPyBandits.Policies.HMABPolicy2 import HMABPolicy2
-from SMPyBandits.Policies.HMABPolicy4 import HMABPolicy4
+from SMPyBandits.Policies.HMABOld.HMABPolicy2 import HMABPolicy2
+from SMPyBandits.Policies.HMABOld.HMABPolicy4 import HMABPolicy4
 from SMPyBandits.Policies.UCB import  UCB
 from SMPyBandits.Environment import Evaluator
 
@@ -47,7 +47,7 @@ ENVIRONMENTS = [{
                  "isHMAB": True,
                  "Band_Config": Band_configuration,
                  "compareMAB": True
-                 }] #Need this to fully specify the HMAB problem - used in __initEnvironments to set up arms
+                 }] #Need this to fully specify the HMAB_TEST problem - used in __initEnvironments to set up arms
 
 
 # POLICIES = [
@@ -156,4 +156,4 @@ eval.plotArmPulls(0,1)
 #     "bin_distribution": Gaussian
 # }
 #
-# hmab = HMAB(configuration)
+# hmab = HMAB_TEST(configuration)

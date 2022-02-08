@@ -13,7 +13,7 @@ from SMPyBandits.Environment import Evaluator
 
 
 
-nbBins = 100
+nbBins = 1000
 nbBands = 3
 percentile = .99
 P1 = 0.2
@@ -123,8 +123,16 @@ eval.startAllEnv()
 eval.printSummary(0,0,3)
 eval.plotChoices(0,0)
 
+
 fig, ax = plt.subplots()
 ax.envOpt = envOpt
 eval.envs[0].plotDists(ax)
 ax.legend(loc = 'best', frameon = False)
 fig.show()
+
+###
+pol = eval.final_policy[0][0]
+result = eval.final_result[0][0]
+arms_sorted_pulls = np.argsort(-pol.pulls)
+most_pulled_bin = pol.Bins[arms_sorted_pulls[0]]
+chosen_bin = pol.Bins[pol.bestArms[0]]
