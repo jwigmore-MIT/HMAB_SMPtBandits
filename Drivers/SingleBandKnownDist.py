@@ -18,5 +18,6 @@ nbBands = 3
 percentile = .99 # p i.e. set percentage of environment that we want the chosen bin to be better than
 HORIZON = 1000000
 confidence = 0.95 #
+t =1
 
 # Gaussian Setup #
