@@ -42,7 +42,6 @@ bandConfig = {
 
 
 
-nbBands = bandConfig["bandParams"]["mu"].__len__()
 
 envConfig = {
     "isHMAB": True,

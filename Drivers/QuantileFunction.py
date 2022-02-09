@@ -118,16 +118,21 @@ font = {'family' : 'normal',
 
 plt.rc('font', **font)
 
-Y1 = stats.norm(0,1)
-Y2 = stats.norm(3,1)
+Y1 = stats.norm(0,3)
+Y2 = stats.norm(3,0.25)
+Y3 = stats.norm(5,.5)
+Y4 = stats.norm(7,1)
 
-Ymix = mixture([Y1, Y2], [0.5, 0.5])
+
+Ymix = mixture([Y1, Y2, Y3, Y4], [0.25, 0.25, 0.25, 0.25])
 
 test = Ymix.ppf(0.5)
 
 fig1, ax1 = plt.subplots()
 ax1 = plot_pdf(Y1, ax1)
 ax1 = plot_pdf(Y2, ax1)
+ax1 = plot_pdf(Y3, ax1)
+ax1 = plot_pdf(Y4, ax1)
 ax1 = Ymix.plot_pdf(ax1)
 fig1.show()
 
@@ -135,12 +140,16 @@ fig1.show()
 fig2, ax2 = plt.subplots()
 ax2 = plot_cdf(Y1, ax2)
 ax2 = plot_cdf(Y2, ax2)
+ax2 = plot_cdf(Y3, ax2)
+ax2 = plot_cdf(Y4, ax2)
 ax2 = Ymix.plot_cdf(ax2)
 fig2.show()
 
 fig3, ax3 = plt.subplots()
 ax3 = plot_icdf(Y1, ax3)
 ax3 = plot_icdf(Y2, ax3)
+ax3 = plot_icdf(Y3, ax3)
+ax3 = plot_icdf(Y4, ax3)
 ax3 = Ymix.plot_icdf(ax3)
 fig3.show()
 
