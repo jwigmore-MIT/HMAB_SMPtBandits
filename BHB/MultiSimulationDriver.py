@@ -221,7 +221,7 @@ class SimHelper(object):
         return pol_regrets, avg_regret_df, std_regret_df
 
     def plot_pol_avg_regrets(self):
-        plt.rcParams['text.usetex'] = True
+        #plt.rcParams['text.usetex'] = True
         fig, ax = plt.subplots()
         ax.plot(self.avg_regret_df, label = [x for x in self.avg_regret_df.columns])
         #ax.set_title("Average Regret")
@@ -303,10 +303,11 @@ scenarios = [scenario1, scenario2, scenario3, scenario4, scenario5, scenario6, s
 scenario = scenario1
 
 
-RUN_LOAD = False
-RUN_MULTI = False
-RUN = True
-LOAD = False
+RUN_LOAD = True # Run and load a single scenario
+RUN_MULTI = False # Run Multiple scenarios
+RUN = False # Run a single scenario
+LOAD = False # Load a single scenario
+
 
 # Load_Path = 'C:\GitHub\HMAB\BHB\Pickled_Trials\\2022-07-19_10_55.pkl' # Scenario 3, Strong overlap
 # Load_Path = 'C:\\GitHub\\HMAB\\BHB\\Pickled_Trials\\2022-07-19_17_34.pkl' # Scenar 2, Moderate overlap
@@ -315,7 +316,7 @@ Load_Path = 'C:\GitHub\HMAB\BHB\Pickled_Trials\scenario6_2022-07-19_23_35.pkl' #
 if __name__ == "__main__":
     if RUN:
         time = datetime.now().strftime("%Y-%m-%d_%H_%M")
-        Store_Path = f'C:\GitHub\HMAB\BHB\Pickled_Trials\\{time}.pkl'
+        Store_Path = f'C:\\Users\\Jerrod-CNRG\\Documents\\GitHub\\HMAB_SMPtBandits\\BHB\\NewPickledResults\\{time}.pkl'
         settings = scenario
         Driver = MultiSimulationDriver(settings)
         all_results = Driver.run_trials(summary = True)
@@ -331,25 +332,24 @@ if __name__ == "__main__":
         Helper.plot_envs_n_regret()
         #Helper.plot_trial_decision_history(trial_id=2)
     if RUN_LOAD:
-        for scenario in scenarios:
-            time = datetime.now().strftime("%Y-%m-%d_%H_%M")
-            Store_Path = f'C:\GitHub\HMAB\BHB\Pickled_Trials\\{time}.pkl'
-            settings = scenario
-            Driver = MultiSimulationDriver(settings)
-            all_results = Driver.run_trials(summary=True)
-            pickle.dump(Driver, open(Store_Path, 'wb'))
-            Driver = pickle.load(open(Store_Path, 'rb'))
-            Helper = SimHelper(Driver)
-            pol_regrets, avg_regrets_df, std_regrets_df = Helper.process_trial_regrets()
-            # avg_regrets_df.plot()
-            Helper.plot_pol_avg_regrets()
-            pol_performance = Helper.summarize_results()
-            Helper.plot_envs_n_regret()
+        time = datetime.now().strftime("%Y-%m-%d_%H_%M")
+        Store_Path = f'C:\\Users\\Jerrod-CNRG\\Documents\\GitHub\\HMAB_SMPtBandits\\BHB\\NewPickledResults\\{time}.pkl'
+        settings = scenario
+        Driver = MultiSimulationDriver(settings)
+        all_results = Driver.run_trials(summary=True)
+        pickle.dump(Driver, open(Store_Path, 'wb'))
+        Driver = pickle.load(open(Store_Path, 'rb'))
+        Helper = SimHelper(Driver)
+        pol_regrets, avg_regrets_df, std_regrets_df = Helper.process_trial_regrets()
+        # avg_regrets_df.plot()
+        Helper.plot_pol_avg_regrets()
+        pol_performance = Helper.summarize_results()
+        Helper.plot_envs_n_regret()
     if RUN_MULTI:
         i = 1
         for scenario in scenarios:
             time = datetime.now().strftime("%Y-%m-%d_%H_%M")
-            Store_Path = f'C:\GitHub\HMAB\BHB\Pickled_Trials\\scenario{i}_{time}.pkl'
+            Store_Path = f'C:\\Users\\Jerrod-CNRG\\Documents\\GitHub\\HMAB_SMPtBandits\\BHB\\NewPickledResults\\{time}.pkl'
             settings = scenario
             Driver = MultiSimulationDriver(settings)
             all_results = Driver.run_trials(summary=True)

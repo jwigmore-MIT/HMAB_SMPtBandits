@@ -12,9 +12,9 @@ seed = 123456
 rng = np.random.default_rng(seed)
 nbClusters = 5
 nbArms = 100
-Horizon = 5000
-nbTrials = 30
-nbTrials2 = 30
+Horizon = 50
+nbTrials = 1
+nbTrials2 = 1
 
 env_settings1 = {
     'nbClusters' :nbClusters, # Number of Clusters

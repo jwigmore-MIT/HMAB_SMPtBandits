@@ -5,8 +5,8 @@ from matplotlib.backends.backend_pdf import PdfPages
 from scipy.stats import norm
 from BHB.helper import *
 
-mng = plt.get_current_fig_manager()
-mng.window.state('zoomed')
+# mng = plt.get_current_fig_manager()
+# mng.window.state('zoomed')
 
 import pandas as pd
 
