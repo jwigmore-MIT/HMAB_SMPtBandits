@@ -14,6 +14,7 @@ from BHB.Evaluator import *
 from BHB.config import DEBUGSETTINGS as DS
 import pickle
 from datetime import datetime
+import os
 
 import addcopyfighandler
 
@@ -303,8 +304,8 @@ scenarios = [scenario1, scenario2, scenario3, scenario4, scenario5, scenario6, s
 scenario = scenario1
 
 
-RUN_LOAD = True # Run and load a single scenario
-RUN_MULTI = False # Run Multiple scenarios
+RUN_LOAD = False# Run and load a single scenario
+RUN_MULTI = True # Run Multiple scenarios
 RUN = False # Run a single scenario
 LOAD = False # Load a single scenario
 
@@ -347,9 +348,10 @@ if __name__ == "__main__":
         Helper.plot_envs_n_regret()
     if RUN_MULTI:
         i = 1
+        time = datetime.now().strftime("%Y-%m-%d_%H_%M")
+        os.mkdir(f'C:\\Users\\Jerrod-CNRG\\Documents\\GitHub\\HMAB_SMPtBandits\\BHB\\NewPickledResults\\{time}')
         for scenario in scenarios:
-            time = datetime.now().strftime("%Y-%m-%d_%H_%M")
-            Store_Path = f'C:\\Users\\Jerrod-CNRG\\Documents\\GitHub\\HMAB_SMPtBandits\\BHB\\NewPickledResults\\{time}.pkl'
+            Store_Path = f'C:\\Users\\Jerrod-CNRG\\Documents\\GitHub\\HMAB_SMPtBandits\\BHB\\NewPickledResults\\{time}\\scenario{i}.pkl'
             settings = scenario
             Driver = MultiSimulationDriver(settings)
             all_results = Driver.run_trials(summary=True)
