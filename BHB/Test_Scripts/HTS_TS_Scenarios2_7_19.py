@@ -91,15 +91,6 @@ env_settings7 = {
 policies = {
     "HTS": {"est_priors":None},
     "TS": {"est_priors": None},
-    # "Full HTS UI": {"est_priors":None},
-    # "Full Sample HTS": {"est_priors":None},
-    # "Tiered HTS": {"est_priors":None},
-    # "Tiered HTS UI": {"est_priors":None},
-    # "Bayes UCB": {"est_priors": None},
-    # "MOSS UCB": {"UCB_Type": "MOSS"},
-    # "Delta UCB": {"UCB_Type": "delta","UCB_delta": 0.05}
-
-
 }
 
 scenario1 = {
