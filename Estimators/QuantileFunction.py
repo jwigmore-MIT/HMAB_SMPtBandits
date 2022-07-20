@@ -35,7 +35,7 @@ class mixture:
 
 
     def plot_pdf(self, ax):
-        ax.plot(self.x_pdf, self.mix_pdf)
+        ax.plot(self.x_pdf, self.mix_pdf, label = "$f_{mix}$")
         return ax
 
     def plot_cdf(self, ax):
@@ -90,10 +90,11 @@ class mixture:
 def plot_pdf(Y, ax):
     a = 0.005
     x = np.linspace(Y.ppf(a), Y.ppf(1-a), 1000)
-    ax.plot(x, Y.pdf(x))
-    ax.set_xlabel('$y$')
-    ax.set_ylabel(r'$f_{Y_i}(y)$')
-    ax.set_title('Probability Distribution Function')
+    ax.plot(x, Y.pdf(x), label = f"N({Y.args[0]}, {Y.args[1]**2})" )
+    ax.set_xlabel('$x$')
+    ax.set_ylabel(r'$f(x)$')
+
+    #ax.set_title('Probability Distribution Function')
     return ax
 
 def plot_cdf(Y,ax):
@@ -118,40 +119,43 @@ font = {'family' : 'normal',
 
 plt.rc('font', **font)
 
-Y1 = stats.norm(0,3)
-Y2 = stats.norm(3,0.25)
-Y3 = stats.norm(5,.5)
-Y4 = stats.norm(7,1)
+Y1 = stats.norm(3,1)
+Y2 = stats.norm(5,1)
+Y3 = stats.norm(7,1)
+Y4 = stats.norm(9,1)
 
 
 Ymix = mixture([Y1, Y2, Y3, Y4], [0.25, 0.25, 0.25, 0.25])
 
-test = Ymix.ppf(0.5)
+test = Ymix.ppf(0.9)
 
 fig1, ax1 = plt.subplots()
 ax1 = plot_pdf(Y1, ax1)
 ax1 = plot_pdf(Y2, ax1)
 ax1 = plot_pdf(Y3, ax1)
 ax1 = plot_pdf(Y4, ax1)
+ax1.legend()
 ax1 = Ymix.plot_pdf(ax1)
+ax1.vlines(test,0,0.4, linestyles = "dashed", label = '$F_{mix}^{-1}(0.9)$')
+ax1.legend()
 fig1.show()
 
 
-fig2, ax2 = plt.subplots()
-ax2 = plot_cdf(Y1, ax2)
-ax2 = plot_cdf(Y2, ax2)
-ax2 = plot_cdf(Y3, ax2)
-ax2 = plot_cdf(Y4, ax2)
-ax2 = Ymix.plot_cdf(ax2)
-fig2.show()
-
-fig3, ax3 = plt.subplots()
-ax3 = plot_icdf(Y1, ax3)
-ax3 = plot_icdf(Y2, ax3)
-ax3 = plot_icdf(Y3, ax3)
-ax3 = plot_icdf(Y4, ax3)
-ax3 = Ymix.plot_icdf(ax3)
-fig3.show()
+# fig2, ax2 = plt.subplots()
+# ax2 = plot_cdf(Y1, ax2)
+# ax2 = plot_cdf(Y2, ax2)
+# ax2 = plot_cdf(Y3, ax2)
+# ax2 = plot_cdf(Y4, ax2)
+# ax2 = Ymix.plot_cdf(ax2)
+# fig2.show()
+#
+# fig3, ax3 = plt.subplots()
+# ax3 = plot_icdf(Y1, ax3)
+# ax3 = plot_icdf(Y2, ax3)
+# ax3 = plot_icdf(Y3, ax3)
+# ax3 = plot_icdf(Y4, ax3)
+# ax3 = Ymix.plot_icdf(ax3)
+# fig3.show()
 
 
 
